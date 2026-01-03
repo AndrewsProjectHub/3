@@ -1,0 +1,25 @@
+# Render Blueprint - One-Click Deploy
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: md102-study-webhook
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: NOTION_TOKEN
+        sync: false  # User must set manually
+      - key: AUTH_TOKEN
+        generateValue: true  # Auto-generate secure token
+      - key: PLAN_DB_ID
+        sync: false
+      - key: OBJECTIVES_DB_ID
+        sync: false
+      - key: RESOURCES_DB_ID
+        sync: false
+      - key: PRACTICE_DB_ID
+        sync: false
+      - key: MISTAKES_DB_ID
+        sync: false
+    healthCheckPath: /health
